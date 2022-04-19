@@ -17,61 +17,116 @@ const BoardUser = () => import("@/components/BoardUser.vue");
 const routes = [
   {
     path: "/",
+    name: "main",
     component: HomeView,
-    meta: { layout: LayoutDefault }
+    meta: {
+      layout: LayoutDefault,
+      title: "Hola-Mundo",
+      description: "this is a test",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/",
     alias: "/home",
     name: "home",
     component: HomeView,
-    meta: { layout: LayoutDefault }
+    meta: {
+      layout: LayoutDefault,
+      title: "Hola-Mundo",
+      description: "this is a test",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/about",
     name: "about",
     component: AboutView,
-    meta: { layout: LayoutDefault }
+    meta: {
+      layout: LayoutDefault,
+      title: "About",
+      description: "this is a test - About",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/login",
     name: "login",
     component: LoginView,
-    meta: { layout: LayoutAuth }
+    meta: {
+      layout: LayoutAuth,
+      title: "Login",
+      description: "this is a test - login",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/register",
     name: "register",
     component: RegisterView,
-    meta: { layout: LayoutAuth }
+    meta: {
+      layout: LayoutAuth,
+      title: "Register",
+      description: "this is a test - register",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/profile",
     name: "profile",
     // lazy-loaded
     component: ProfileView,
-    meta: { layout: layoutProfile }
+    meta: {
+      layout: layoutProfile,
+      title: "Profile",
+      description: "this is a test - profile",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/admin",
     name: "admin",
     // lazy-loaded
     component: BoardAdmin,
-    meta: { layout: LayoutAdmin }
+    meta: {
+      layout: LayoutAdmin,
+      title: "Board Admin",
+      description: "Board Admin",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/mod",
     name: "moderator",
     // lazy-loaded
     component: BoardModerator,
-    meta: { layout: LayoutAdmin }
+    meta: {
+      layout: LayoutAdmin,
+      title: "Board moderator",
+      description: "Board moderator",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   },
   {
     path: "/user",
     name: "user",
     // lazy-loaded
     component: BoardUser,
-    meta: { layout: LayoutAdmin }
+    meta: {
+      layout: LayoutAdmin,
+      title: "Board user",
+      description: "Board user",
+      keywords: "vite,vue,head",
+      author: "EnMemoLab"
+    }
   }
 ];
 

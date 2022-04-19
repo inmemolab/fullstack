@@ -2,7 +2,7 @@
   <nav class="app-content-top d-flex">
     <button type="button" class="btn btn-info" @click="ToggleMenu">
       <i class="fas fa-adivgn-left"></i>
-      <span>Toggle Sidebar</span>
+      <span>{{ $t("menu-open") }}</span>
     </button>
 
     <div v-if="showAdminBoard">
@@ -18,12 +18,12 @@
     <div v-if="!currentUser">
       <router-link :to="{ name: 'register' }">
         <font-awesome-icon icon="user-plus" />
-        Sign Up
+        {{ $t("menu-register") }}
       </router-link>
 
       <router-link :to="{ name: 'login' }">
         <font-awesome-icon icon="sign-in-alt" />
-        Login
+        {{ $t("menu-login") }}
       </router-link>
     </div>
     <div v-if="currentUser">
@@ -34,7 +34,7 @@
 
       <button type="button" class="btn btn-info" @click="logOut">
         <font-awesome-icon icon="sign-out-alt" />
-        LogOut
+        {{ $t("menu-logout") }}
       </button>
     </div>
     <locale-select />

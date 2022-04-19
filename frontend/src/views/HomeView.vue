@@ -6,12 +6,35 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, computed } from "vue";
   import { RouteLocationNormalized, useRoute } from "vue-router";
+  import { useHead } from "@vueuse/head";
   import { useTestStore } from "../store/test";
   const route = useRoute();
   const testStore = useTestStore();
   const list = ref(testStore.items[route.fullPath]);
+
+  const title = computed(() => route.meta.title as string);
+  const description = computed(() => route.meta.description as string);
+  const keywords = computed(() => route.meta.keywords as string);
+  const author = computed(() => route.meta.author as string);
+  useHead({
+    title: title,
+    meta: [
+      {
+        name: "description",
+        content: description
+      },
+      {
+        name: "keywords",
+        content: keywords
+      },
+      {
+        name: "author",
+        content: author
+      }
+    ]
+  });
 </script>
 
 <script lang="ts">

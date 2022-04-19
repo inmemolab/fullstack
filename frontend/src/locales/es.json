@@ -1,4 +1,10 @@
 {
   "hello": "Hola Mundo",
+  "menu-open": "Menu",
+  "menu-home": "Inicio",
+  "menu-about": "Este",
+  "menu-register": "Registrarse",
+  "menu-login": "Ingresar",
+  "menu-logout": "Salir",
   "msg-count": "Contador"
 }

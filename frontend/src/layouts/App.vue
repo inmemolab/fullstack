@@ -11,26 +11,13 @@
 <script setup lang="ts">
   import { inject, onMounted, onBeforeUnmount, ref, reactive, watch, computed } from "vue";
   import { useRoute } from "vue-router";
-  import { useStoreAuth } from "@/store/StoreAuth";
   import { useHead } from "@vueuse/head";
+  import { useStoreAuth } from "@/store/StoreAuth";
   import AppAside from "./AppAside.vue";
   // name: "App",
 
   const route = useRoute();
   const storeAuth = useStoreAuth();
-  useHead({
-    title: "Default title",
-    meta: [
-      {
-        name: "description",
-        content: "This is a DEFAULT description"
-      },
-      {
-        name: "other-stuff",
-        content: "This is some OTHER stuff"
-      }
-    ]
-  });
   const currentUser = computed(() => storeAuth.user);
   const userSocketId = ref();
   const $socket: any = inject("$socket");

@@ -39,7 +39,8 @@
 
 <script setup lang="ts">
   import { computed, ref } from "vue";
-  import { useRouter } from "vue-router";
+  import { useRoute, useRouter } from "vue-router";
+  import { useHead } from "@vueuse/head";
   import { useStoreAuth } from "@/store/StoreAuth";
 
   import { Form, Field, ErrorMessage } from "vee-validate";
@@ -48,7 +49,30 @@
   // name: "LoginView",
 
   const router = useRouter();
+  const route = useRoute();
   const storeAuth = useStoreAuth();
+
+  const title = computed(() => route.meta.title as string);
+  const description = computed(() => route.meta.description as string);
+  const keywords = computed(() => route.meta.keywords as string);
+  const author = computed(() => route.meta.author as string);
+  useHead({
+    title: title,
+    meta: [
+      {
+        name: "description",
+        content: description
+      },
+      {
+        name: "keywords",
+        content: keywords
+      },
+      {
+        name: "author",
+        content: author
+      }
+    ]
+  });
 
   const loggedIn = computed(() => storeAuth.status.loggedIn);
   const schema = yup.object().shape({
