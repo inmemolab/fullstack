@@ -1,0 +1,57 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true,
+    "noImplicitAny": false,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "useDefineForClassFields": true,
+    "allowJs": true,
+    "removeComments": true,
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "outDir": "./dist",
+    "rootDir": "./",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "types": [
+      "@types/node",
+      "vite/client",
+      "@types/jest",
+      "jest",
+      "cypress",
+      "@cypress/vue",
+      "@intlify/vite-plugin-vue-i18n/client"
+    ]
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": [
+    "vite.config.ts",
+    "server.ts",
+    "src/env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "src/**/*.json",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "**/*.js", "**/*.md", "src/**/*.md"]
+}
