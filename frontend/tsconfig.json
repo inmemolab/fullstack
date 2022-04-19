@@ -31,6 +31,7 @@
       "jest",
       "cypress",
       "@cypress/vue",
+      "pinia-plugin-persist",
       "@intlify/vite-plugin-vue-i18n/client"
     ]
   },

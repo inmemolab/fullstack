@@ -2,9 +2,7 @@
 import AuthDataService from "@/services/authDataService";
 import { defineStore } from "pinia";
 
-// const storedUser = localStorage.getItem("user");
-
-const storedUser = "";
+const storedUser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
 
 export const useStoreAuth = defineStore({
   id: "authStore",
