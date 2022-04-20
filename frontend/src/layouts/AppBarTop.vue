@@ -6,31 +6,31 @@
     </button>
 
     <div v-if="showAdminBoard">
-      <RouterLink to="/admin">Admin Board</RouterLink>
+      <router-link to="/admin">Admin Board</router-link>
     </div>
     <div v-if="showModeratorBoard">
-      <RouterLink to="/mod">Moderator Board</RouterLink>
+      <router-link to="/mod">Moderator Board</router-link>
     </div>
     <div>
-      <RouterLink v-if="currentUser" to="/user">User</RouterLink>
+      <router-link v-if="currentUser" to="/user">User</router-link>
     </div>
 
     <div v-if="!currentUser">
-      <RouterLink :to="{ name: 'register' }">
+      <router-link :to="{ name: 'register' }">
         <font-awesome-icon icon="user-plus" />
         {{ $t("menu-register") }}
-      </RouterLink>
+      </router-link>
 
-      <RouterLink :to="{ name: 'login' }">
+      <router-link :to="{ name: 'login' }">
         <font-awesome-icon icon="sign-in-alt" />
         {{ $t("menu-login") }}
-      </RouterLink>
+      </router-link>
     </div>
     <div v-if="currentUser">
-      <RouterLink to="/profile">
+      <router-link to="/profile">
         <font-awesome-icon icon="user" />
         {{ currentUser.username }}
-      </RouterLink>
+      </router-link>
 
       <button type="button" class="btn btn-info" @click="logOut">
         <font-awesome-icon icon="sign-out-alt" />

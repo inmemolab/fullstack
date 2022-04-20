@@ -55,8 +55,6 @@ export const useStoreAuth = defineStore({
       const isBrowser = typeof window !== "undefined";
       if (isBrowser) {
         storedUser = localStorage.getItem("user");
-        console.log("isBrowser: " + isBrowser);
-        console.log("UserLocale: " + storedUser);
       }
       this.status = storedUser ? { loggedIn: true } : { loggedIn: false };
       this.user = storedUser ? JSON.parse(storedUser) : null;
