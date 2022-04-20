@@ -11,11 +11,7 @@
   import { useRoute, useRouter } from "vue-router";
   import { useHead } from "@vueuse/head";
   import { useStoreAuth } from "@/store/StoreAuth";
-
   import UserService from "@/services/userDataService";
-  import EventBus from "@/plugins/eventBus";
-
-  // name: "BoardAdmin",
 
   const router = useRouter();
   const route = useRoute();
@@ -60,7 +56,7 @@
         error.toString();
 
       if (error.response && error.response.status === 403) {
-        EventBus.dispatch("logout");
+        storeAuth.logout();
       }
     }
   );

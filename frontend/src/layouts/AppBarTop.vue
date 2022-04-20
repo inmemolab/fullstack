@@ -4,7 +4,6 @@
       <i class="fas fa-adivgn-left"></i>
       <span>{{ $t("menu-open") }}</span>
     </button>
-
     <div v-if="showAdminBoard">
       <router-link to="/admin">Admin Board</router-link>
     </div>
@@ -14,13 +13,11 @@
     <div>
       <router-link v-if="currentUser" to="/user">User</router-link>
     </div>
-
     <div v-if="!currentUser">
       <router-link :to="{ name: 'register' }">
         <font-awesome-icon icon="user-plus" />
         {{ $t("menu-register") }}
       </router-link>
-
       <router-link :to="{ name: 'login' }">
         <font-awesome-icon icon="sign-in-alt" />
         {{ $t("menu-login") }}

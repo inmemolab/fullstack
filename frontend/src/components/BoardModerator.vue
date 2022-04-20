@@ -13,7 +13,6 @@
   import { useStoreAuth } from "@/store/StoreAuth";
 
   import UserService from "@/services/userDataService";
-  import EventBus from "@/plugins/eventBus";
 
   // name: "BoardModerator",
   const router = useRouter();
@@ -59,7 +58,7 @@
         error.toString();
 
       if (error.response && error.response.status === 403) {
-        EventBus.dispatch("logout");
+        storeAuth.logout();
       }
     }
   );

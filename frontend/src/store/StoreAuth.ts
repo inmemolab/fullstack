@@ -1,13 +1,12 @@
 //* Ini Import
 import AuthDataService from "@/services/authDataService";
 import { defineStore } from "pinia";
-
+// info in localstorage
 const storedUser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
-
+// export
 export const useStoreAuth = defineStore({
   id: "authStore",
   state: () => ({
-    // initialState
     status: storedUser ? { loggedIn: true } : { loggedIn: false },
     user: storedUser ? JSON.parse(storedUser) : null
   }),
