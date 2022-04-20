@@ -3,17 +3,19 @@
   "compilerOptions": {
     "target": "ES2021",
     "module": "commonjs",
-    // "strict": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
     "noImplicitAny": false,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "jsx": "preserve",
-    "useDefineForClassFields": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true,
+    "declaration": true,
+    "noEmit": false,
+    "importHelpers": true,
     "allowJs": true,
     "removeComments": true,
     "lib": ["ES2021", "esnext.asynciterable"],
@@ -25,7 +27,7 @@
       "@/*": ["src/*"]
     },
     "typeRoots": ["node_modules/@types"],
-    "types": ["@types/node", "@types/jest", "jest", "cypress"]
+    "types": ["@types/node", "@types/express", "@types/jest", "jest", "cypress"]
   },
   "ts-node": {
     "files": true
@@ -40,7 +42,17 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "types/**/*.d.ts",
-    "types/**/*.ts"
+    "types/**/*.ts",
+    ".env"
   ],
-  "exclude": ["node_modules", "dist", "**/*.js", "**/*.md", "src/**/*.md"]
+  "exclude": [
+    "node_modules",
+    "src/http",
+    "src/logs",
+    "src/tests",
+    "dist",
+    "**/*.js",
+    "**/*.md",
+    "src/**/*.md"
+  ]
 }

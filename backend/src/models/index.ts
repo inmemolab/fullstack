@@ -40,6 +40,6 @@ Object.values(db).forEach((model: any) => {
   }
 });
 
-db.ROLES = ["user", "admin", "content-manager", "seller"];
+db.ROLES = ["user", "moderator", "admin"];
 
 export default db;

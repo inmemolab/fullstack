@@ -40,8 +40,8 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed, ref } from "vue";
+<script setup lang="ts">
+  import { computed, ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
   import { useHead } from "@vueuse/head";
   import { useStoreAuth } from "@/store/StoreAuth";
@@ -49,89 +49,79 @@
   import { Form, Field, ErrorMessage } from "vee-validate";
   import * as yup from "yup";
 
-  export default defineComponent({
-    name: "RegisterView",
-    components: {
-      Form,
-      Field,
-      ErrorMessage
-    },
-    setup() {
-      const router = useRouter();
-      const route = useRoute();
-      const storeAuth = useStoreAuth();
+  // name: "RegisterView",
 
-      const title = computed(() => route.meta.title as string);
-      const description = computed(() => route.meta.description as string);
-      const keywords = computed(() => route.meta.keywords as string);
-      const author = computed(() => route.meta.author as string);
-      useHead({
-        title: title,
-        meta: [
-          {
-            name: "description",
-            content: description
-          },
-          {
-            name: "keywords",
-            content: keywords
-          },
-          {
-            name: "author",
-            content: author
-          }
-        ]
-      });
+  const router = useRouter();
+  const route = useRoute();
+  const storeAuth = useStoreAuth();
 
-      const loggedIn = computed(() => storeAuth.status.loggedIn);
-      const schema = yup.object().shape({
-        username: yup
-          .string()
-          .required("Username is required!")
-          .min(3, "Must be at least 3 characters!")
-          .max(20, "Must be maximum 20 characters!"),
-        email: yup
-          .string()
-          .required("Email is required!")
-          .email("Email is invalid!")
-          .max(50, "Must be maximum 50 characters!"),
-        password: yup
-          .string()
-          .required("Password is required!")
-          .min(6, "Must be at least 6 characters!")
-          .max(40, "Must be maximum 40 characters!")
-      });
-      const successful = ref(false);
-      const loading = ref(false);
-      const message = ref("");
-      if (loggedIn.value) {
-        router.push("/profile");
+  const title = computed(() => route.meta.title as string);
+  const description = computed(() => route.meta.description as string);
+  const keywords = computed(() => route.meta.keywords as string);
+  const author = computed(() => route.meta.author as string);
+  useHead({
+    title: title,
+    meta: [
+      {
+        name: "description",
+        content: description
+      },
+      {
+        name: "keywords",
+        content: keywords
+      },
+      {
+        name: "author",
+        content: author
       }
-
-      const handleRegister = (user: any) => {
-        message.value = "";
-        successful.value = false;
-        loading.value = true;
-        storeAuth.register(user).then(
-          (data) => {
-            message.value = data.message;
-            successful.value = true;
-            loading.value = false;
-          },
-          (error) => {
-            message.value =
-              (error.response && error.response.data && error.response.data.message) ||
-              error.message ||
-              error.toString();
-            successful.value = false;
-            loading.value = false;
-          }
-        );
-      };
-
-      return { router, storeAuth, loggedIn, schema, successful, loading, message, handleRegister };
-    }
+    ]
   });
+
+  const loggedIn = computed(() => storeAuth.status.loggedIn);
+  const schema = yup.object().shape({
+    username: yup
+      .string()
+      .required("Username is required!")
+      .min(3, "Must be at least 3 characters!")
+      .max(20, "Must be maximum 20 characters!"),
+    email: yup
+      .string()
+      .required("Email is required!")
+      .email("Email is invalid!")
+      .max(50, "Must be maximum 50 characters!"),
+    password: yup
+      .string()
+      .required("Password is required!")
+      .min(6, "Must be at least 6 characters!")
+      .max(40, "Must be maximum 40 characters!")
+  });
+  const successful = ref(false);
+  const loading = ref(false);
+  const message = ref("");
+  if (loggedIn.value) {
+    router.push("/profile");
+  }
+
+  const handleRegister = (user: any) => {
+    message.value = "";
+    successful.value = false;
+    loading.value = true;
+    storeAuth.register(user).then(
+      (data) => {
+        message.value = data.message;
+        successful.value = true;
+        loading.value = false;
+      },
+      (error) => {
+        message.value =
+          (error.response && error.response.data && error.response.data.message) ||
+          error.message ||
+          error.toString();
+        successful.value = false;
+        loading.value = false;
+      }
+    );
+  };
 </script>
 
 <style scoped>

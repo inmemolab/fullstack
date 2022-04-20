@@ -37,8 +37,8 @@
   </div>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed, ref } from "vue";
+<script setup lang="ts">
+  import { computed, ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
   import { useHead } from "@vueuse/head";
   import { useStoreAuth } from "@/store/StoreAuth";
@@ -46,71 +46,61 @@
   import { Form, Field, ErrorMessage } from "vee-validate";
   import * as yup from "yup";
 
-  export default defineComponent({
-    name: "ForgotView",
-    components: {
-      Form,
-      Field,
-      ErrorMessage
-    },
-    setup() {
-      const router = useRouter();
-      const route = useRoute();
-      const storeAuth = useStoreAuth();
+  // name: "LoginView",
 
-      const title = computed(() => route.meta.title as string);
-      const description = computed(() => route.meta.description as string);
-      const keywords = computed(() => route.meta.keywords as string);
-      const author = computed(() => route.meta.author as string);
-      useHead({
-        title: title,
-        meta: [
-          {
-            name: "description",
-            content: description
-          },
-          {
-            name: "keywords",
-            content: keywords
-          },
-          {
-            name: "author",
-            content: author
-          }
-        ]
-      });
+  const router = useRouter();
+  const route = useRoute();
+  const storeAuth = useStoreAuth();
 
-      const loggedIn = computed(() => storeAuth.status.loggedIn);
-      const schema = yup.object().shape({
-        username: yup.string().required("Username is required!"),
-        password: yup.string().required("Password is required!")
-      });
-      const loading = ref(false);
-      const message = ref("");
-
-      if (loggedIn.value) {
-        router.push("/profile");
+  const title = computed(() => route.meta.title as string);
+  const description = computed(() => route.meta.description as string);
+  const keywords = computed(() => route.meta.keywords as string);
+  const author = computed(() => route.meta.author as string);
+  useHead({
+    title: title,
+    meta: [
+      {
+        name: "description",
+        content: description
+      },
+      {
+        name: "keywords",
+        content: keywords
+      },
+      {
+        name: "author",
+        content: author
       }
-
-      const handleLogin = (user: any) => {
-        loading.value = true;
-        storeAuth.login(user).then(
-          () => {
-            router.push("/profile");
-          },
-          (error) => {
-            loading.value = false;
-            message.value =
-              (error.response && error.response.data && error.response.data.message) ||
-              error.message ||
-              error.toString();
-          }
-        );
-      };
-
-      return { router, storeAuth, loggedIn, schema, loading, message, handleLogin };
-    }
+    ]
   });
+
+  const loggedIn = computed(() => storeAuth.status.loggedIn);
+  const schema = yup.object().shape({
+    username: yup.string().required("Username is required!"),
+    password: yup.string().required("Password is required!")
+  });
+  const loading = ref(false);
+  const message = ref("");
+
+  if (loggedIn.value) {
+    router.push("/profile");
+  }
+
+  const handleLogin = (user: any) => {
+    loading.value = true;
+    storeAuth.login(user).then(
+      () => {
+        router.push("/profile");
+      },
+      (error) => {
+        loading.value = false;
+        message.value =
+          (error.response && error.response.data && error.response.data.message) ||
+          error.message ||
+          error.toString();
+      }
+    );
+  };
 </script>
 
 <style scoped>
