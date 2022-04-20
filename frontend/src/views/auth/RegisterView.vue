@@ -43,9 +43,8 @@
 <script lang="ts">
   import { defineComponent, computed, ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
-  import { useHead } from "@vueuse/head";
   import { useStoreAuth } from "@/store/StoreAuth";
-
+  import { useHead } from "@vueuse/head";
   import { Form, Field, ErrorMessage } from "vee-validate";
   import * as yup from "yup";
 
@@ -57,10 +56,21 @@
       ErrorMessage
     },
     setup() {
+      // ini use
       const router = useRouter();
       const route = useRoute();
       const storeAuth = useStoreAuth();
-
+      // const form
+      const successful = ref(false);
+      const loading = ref(false);
+      const message = ref("");
+      // computes user is login
+      const loggedIn = computed(() => storeAuth.status.loggedIn);
+      // if user log in
+      if (loggedIn.value === true) {
+        router.push("/");
+      }
+      // set use head
       const title = computed(() => route.meta.title as string);
       const description = computed(() => route.meta.description as string);
       const keywords = computed(() => route.meta.keywords as string);
@@ -82,8 +92,7 @@
           }
         ]
       });
-
-      const loggedIn = computed(() => storeAuth.status.loggedIn);
+      // chemas yup form
       const schema = yup.object().shape({
         username: yup
           .string()
@@ -101,20 +110,16 @@
           .min(6, "Must be at least 6 characters!")
           .max(40, "Must be maximum 40 characters!")
       });
-      const successful = ref(false);
-      const loading = ref(false);
-      const message = ref("");
-      if (loggedIn.value) {
-        router.push("/profile");
-      }
-
+      // form action
       const handleRegister = (user: any) => {
         message.value = "";
         successful.value = false;
         loading.value = true;
         storeAuth.register(user).then(
           (data) => {
+            console.log(data);
             message.value = data.message;
+            router.push("/login");
             successful.value = true;
             loading.value = false;
           },
@@ -128,8 +133,8 @@
           }
         );
       };
-
-      return { router, storeAuth, loggedIn, schema, successful, loading, message, handleRegister };
+      // return
+      return { router, loggedIn, schema, successful, loading, message, handleRegister };
     }
   });
 </script>

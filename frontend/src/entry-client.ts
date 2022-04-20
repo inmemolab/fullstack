@@ -2,12 +2,8 @@
 import { createApp } from "./main";
 // import bootstrap-Js
 import "bootstrap";
-// ini setup interceptor
-import setupInterceptors from "@/services/setupInterceptors";
 // create app
 const { app, router, pinia } = createApp();
-// set setup interceptors
-setupInterceptors();
 // @ts-ignore
 if (window.__SSR_STATE__) {
   // @ts-ignore

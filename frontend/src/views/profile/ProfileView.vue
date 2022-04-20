@@ -30,9 +30,6 @@
   import { onMounted, computed } from "vue";
   import { useRouter } from "vue-router";
   import { useStoreAuth } from "@/store/StoreAuth";
-
-  // name: "ProfileView",
-
   const router = useRouter();
   const storeAuth = useStoreAuth();
   const currentUser = computed(() => storeAuth.user);

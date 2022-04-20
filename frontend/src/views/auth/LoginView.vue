@@ -24,9 +24,6 @@
             <span>Login</span>
           </button>
         </div>
-
-        <RouterLink to="/forgot">forgot</RouterLink>
-
         <div class="form-group">
           <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
@@ -40,24 +37,32 @@
 <script lang="ts">
   import { defineComponent, computed, ref } from "vue";
   import { useRoute, useRouter } from "vue-router";
-  import { useHead } from "@vueuse/head";
   import { useStoreAuth } from "@/store/StoreAuth";
-
+  import { useHead } from "@vueuse/head";
   import { Form, Field, ErrorMessage } from "vee-validate";
   import * as yup from "yup";
-
   export default defineComponent({
-    name: "ForgotView",
+    name: "LoginView",
     components: {
       Form,
       Field,
       ErrorMessage
     },
     setup() {
+      // ini use
       const router = useRouter();
       const route = useRoute();
       const storeAuth = useStoreAuth();
-
+      // const form
+      const loading = ref(false);
+      const message = ref("");
+      // computes user is login
+      const loggedIn = computed(() => storeAuth.status.loggedIn);
+      // if user log in
+      if (loggedIn.value === true) {
+        router.push("/");
+      }
+      // set use head
       const title = computed(() => route.meta.title as string);
       const description = computed(() => route.meta.description as string);
       const keywords = computed(() => route.meta.keywords as string);
@@ -79,19 +84,12 @@
           }
         ]
       });
-
-      const loggedIn = computed(() => storeAuth.status.loggedIn);
+      // chemas yup form
       const schema = yup.object().shape({
         username: yup.string().required("Username is required!"),
         password: yup.string().required("Password is required!")
       });
-      const loading = ref(false);
-      const message = ref("");
-
-      if (loggedIn.value) {
-        router.push("/profile");
-      }
-
+      // form action
       const handleLogin = (user: any) => {
         loading.value = true;
         storeAuth.login(user).then(
@@ -107,8 +105,8 @@
           }
         );
       };
-
-      return { router, storeAuth, loggedIn, schema, loading, message, handleLogin };
+      // return
+      return { router, loggedIn, schema, loading, message, handleLogin };
     }
   });
 </script>

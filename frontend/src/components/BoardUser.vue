@@ -43,7 +43,7 @@
     ]
   });
 
-  const loggedIn = computed(() => storeAuth.status.loggedIn);
+  const loggedIn = computed(() => storeAuth.loggedIn);
   const content = ref("");
   if (!loggedIn.value) {
     router.push("/home");

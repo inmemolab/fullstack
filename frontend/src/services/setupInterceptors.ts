@@ -4,8 +4,12 @@ import TokenDataService from "./tokenDataService";
 import { useStoreAuth } from "@/store/StoreAuth";
 // define const
 const setup = () => {
+  // use auth store
+  const storeAuth = useStoreAuth();
+  // axios request
   axiosInstance.interceptors.request.use(
     (config: any) => {
+      storeAuth.setuser();
       const token = TokenDataService.getLocalAccessToken();
       if (token) {
         config.headers["x-access-token"] = token;
@@ -16,12 +20,14 @@ const setup = () => {
       return Promise.reject(error);
     }
   );
-
+  // axios response
   axiosInstance.interceptors.response.use(
     (res) => {
+      storeAuth.setuser();
       return res;
     },
     async (err) => {
+      storeAuth.setuser();
       const originalConfig = err.config;
 
       if (originalConfig.url !== "/auth/signin" && err.response) {
@@ -35,7 +41,7 @@ const setup = () => {
             });
 
             const { accessToken } = rs.data;
-            const storeAuth = useStoreAuth();
+
             storeAuth.refreshToken(accessToken);
             TokenDataService.updateLocalAccessToken(accessToken);
 

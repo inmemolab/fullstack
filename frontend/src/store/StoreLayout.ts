@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useStoreLayout = defineStore({
-  id: "layoutStore",
+export const useStoreLayout = defineStore("layoutStore", {
   state: () => ({
     appLocale: "es",
     isSidebar: true

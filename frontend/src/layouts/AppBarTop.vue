@@ -6,31 +6,31 @@
     </button>
 
     <div v-if="showAdminBoard">
-      <router-link to="/admin">Admin Board</router-link>
+      <RouterLink to="/admin">Admin Board</RouterLink>
     </div>
     <div v-if="showModeratorBoard">
-      <router-link to="/mod">Moderator Board</router-link>
+      <RouterLink to="/mod">Moderator Board</RouterLink>
     </div>
     <div>
-      <router-link v-if="currentUser" to="/user">User</router-link>
+      <RouterLink v-if="currentUser" to="/user">User</RouterLink>
     </div>
 
     <div v-if="!currentUser">
-      <router-link :to="{ name: 'register' }">
+      <RouterLink :to="{ name: 'register' }">
         <font-awesome-icon icon="user-plus" />
         {{ $t("menu-register") }}
-      </router-link>
+      </RouterLink>
 
-      <router-link :to="{ name: 'login' }">
+      <RouterLink :to="{ name: 'login' }">
         <font-awesome-icon icon="sign-in-alt" />
         {{ $t("menu-login") }}
-      </router-link>
+      </RouterLink>
     </div>
     <div v-if="currentUser">
-      <router-link to="/profile">
+      <RouterLink to="/profile">
         <font-awesome-icon icon="user" />
         {{ currentUser.username }}
-      </router-link>
+      </RouterLink>
 
       <button type="button" class="btn btn-info" @click="logOut">
         <font-awesome-icon icon="sign-out-alt" />
@@ -44,43 +44,35 @@
 <script setup lang="ts">
   import { computed } from "vue";
   import { useRouter } from "vue-router";
-  import { useStoreLayout } from "@/store/StoreLayout";
   import { useStoreAuth } from "@/store/StoreAuth";
+  import { useStoreLayout } from "@/store/StoreLayout";
   import LocaleSelect from "@/components/LocaleSelect.vue";
-  import EventBus from "../plugins/eventBus";
-
-  // name: "AppNavbar",
-
+  // ini use
   const router = useRouter();
-  const layout = useStoreLayout();
   const storeAuth = useStoreAuth();
-
+  const layout = useStoreLayout();
+  // computed
   const currentUser = computed(() => storeAuth.user);
   const showAdminBoard = computed(() => {
     if (currentUser.value && currentUser.value.roles) {
       return currentUser.value.roles.includes("ROLE_ADMIN");
     }
-
     return false;
   });
   const showModeratorBoard = computed(() => {
     if (currentUser.value && currentUser.value.roles) {
       return currentUser.value.roles.includes("ROLE_MODERATOR");
     }
-
     return false;
   });
-
+  // functions
   const ToggleMenu = () => {
     layout.changeSidebar();
   };
 
-  EventBus.on("logout", () => {
-    logOut();
-  });
   const logOut = () => {
     storeAuth.logout();
-    router.push("/login");
+    router.push("/");
   };
 </script>
 

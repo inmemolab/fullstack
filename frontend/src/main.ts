@@ -20,6 +20,8 @@ import { createI18n } from "@/plugins/i18n";
 import { FontAwesomeIcon } from "@/plugins/fontAwesomeIcon";
 // import styles
 import "@/assets/custom.scss";
+// ini setup interceptor
+import setupInterceptors from "@/services/setupInterceptors";
 // export
 export function createApp() {
   const app = createSSRApp(App);
@@ -47,6 +49,8 @@ export function createApp() {
   app.provide("moment", moment);
   // use font awesome icon
   app.component("FontAwesomeIcon", FontAwesomeIcon);
+  // set setup interceptors
+  setupInterceptors();
   // return
   return { app, router, head, pinia };
 }

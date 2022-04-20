@@ -1,6 +1,6 @@
 <template>
   <AppSidebar />
-  <div class="app-content" :class="`${isSidebarData ? 'active' : ''}`">
+  <div class="app-content" :class="`${isSidebarData ? 'active' : 'inactive'}`">
     <AppBarTop />
     <main class="app-content-main">
       <slot />
@@ -15,15 +15,8 @@
   import AppSidebar from "./AppSidebar.vue";
   import AppFooter from "./AppFooter.vue";
   import { useStoreLayout } from "@/store/StoreLayout";
-
-  // name: "LayoutAdmin",
-
+  // ini use
   const layout = useStoreLayout();
+  // computed
   const isSidebarData = computed(() => layout.isSidebar);
-  const $socket: any = inject("$socket");
-
-  const newMsg = {
-    msg: "new window"
-  };
-  $socket.emit("iniApp", newMsg);
 </script>
