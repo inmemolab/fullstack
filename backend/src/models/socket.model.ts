@@ -3,10 +3,13 @@ import * as Sequelize from "sequelize";
 import { DB } from "./index";
 //* Export Calss
 export class Socket extends Sequelize.Model {
-  id?: number;
-  path: string;
-  socketId: string;
-  userId: number;
+  userOnline: boolean;
+  userUUID: string;
+  userSocketId: string;
+  userAuthId: number;
+  userAuthUsername: string;
+  userIp: string;
+  userPath: string;
   //* Link name for associate
   // static relationAliases = [""];
   //* Associate
@@ -17,9 +20,17 @@ export class Socket extends Sequelize.Model {
 export default (sequelize: Sequelize.Sequelize) => {
   Socket.init(
     {
-      path: { field: "path", type: Sequelize.DataTypes.STRING },
-      socketId: { field: "socketId", type: Sequelize.DataTypes.STRING },
-      userId: { field: "userId", type: Sequelize.DataTypes.INTEGER }
+      userOnline: { field: "userOnline", type: Sequelize.DataTypes.BOOLEAN },
+      userUUID: { field: "userUUID", type: Sequelize.DataTypes.STRING },
+      userSocketId: {
+        field: "userSocketId",
+        type: Sequelize.DataTypes.STRING,
+        primaryKey: true
+      },
+      userAuthId: { field: "userAuthId", type: Sequelize.DataTypes.INTEGER },
+      userAuthUsername: { field: "userAuthUsername", type: Sequelize.DataTypes.STRING },
+      userIp: { field: "userIp", type: Sequelize.DataTypes.STRING },
+      userPath: { field: "userPath", type: Sequelize.DataTypes.STRING }
     },
     {
       sequelize,

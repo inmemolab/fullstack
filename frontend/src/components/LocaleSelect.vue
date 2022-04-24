@@ -15,5 +15,6 @@
 <script setup lang="ts">
   import { useI18n } from "vue-i18n";
   import { SUPPORT_LOCALES } from "@/plugins/i18n";
+  // ini use
   const { locale } = useI18n();
 </script>

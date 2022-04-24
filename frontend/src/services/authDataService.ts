@@ -3,6 +3,9 @@ import api from "@/utils/clientApi";
 import TokenService from "./tokenDataService";
 // define class
 class AuthService {
+  logout() {
+    TokenService.removeUser();
+  }
   login({ username, password }: { username: string; password: string }) {
     return api
       .post("/api/auth/signin", {
@@ -17,11 +20,6 @@ class AuthService {
         return response.data;
       });
   }
-
-  logout() {
-    TokenService.removeUser();
-  }
-
   register({ username, email, password }: { username: string; email: string; password: string }) {
     return api.post("/api/auth/signup", {
       username,

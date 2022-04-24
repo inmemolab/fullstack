@@ -28,11 +28,38 @@
 
 <script setup lang="ts">
   import { onMounted, computed } from "vue";
-  import { useRouter } from "vue-router";
+  import { useRoute, useRouter } from "vue-router";
   import { useStoreAuth } from "@/store/StoreAuth";
+  import { useHead } from "@vueuse/head";
+  // ini use
   const router = useRouter();
+  const route = useRoute();
   const storeAuth = useStoreAuth();
+  // computes user is login
   const currentUser = computed(() => storeAuth.user);
+  // set use head
+  const title = computed(() => route.meta.title as string);
+  const description = computed(() => route.meta.description as string);
+  const keywords = computed(() => route.meta.keywords as string);
+  const author = computed(() => route.meta.author as string);
+  useHead({
+    title: title,
+    meta: [
+      {
+        name: "description",
+        content: description
+      },
+      {
+        name: "keywords",
+        content: keywords
+      },
+      {
+        name: "author",
+        content: author
+      }
+    ]
+  });
+  // if user log in
   onMounted(() => {
     if (!currentUser.value) {
       router.push("/login");

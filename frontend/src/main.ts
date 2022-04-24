@@ -8,8 +8,6 @@ import { createPinia } from "pinia";
 import { createHead } from "@vueuse/head";
 // import pinia persist
 import piniaPersist from "pinia-plugin-persist";
-// import socket
-import { io } from "socket.io-client";
 // import app
 import App from "@/layouts/App.vue";
 // import route
@@ -37,12 +35,6 @@ export function createApp() {
   pinia.use(piniaPersist);
   // use store
   app.use(pinia);
-  // ini socket
-  const socket = io(import.meta.env.VITE_APP_PORT_SERVER, {
-    transports: ["websocket", "polling"]
-  });
-  // provide socket
-  app.provide("$socket", socket);
   // use i18n
   app.use(i18n);
   // provide moment

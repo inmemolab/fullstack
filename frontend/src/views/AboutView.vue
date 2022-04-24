@@ -6,8 +6,9 @@
   import { computed } from "vue";
   import { useRoute } from "vue-router";
   import { useHead } from "@vueuse/head";
+  // ini use
   const route = useRoute();
-
+  // set use head
   const title = computed(() => route.meta.title as string);
   const description = computed(() => route.meta.description as string);
   const keywords = computed(() => route.meta.keywords as string);

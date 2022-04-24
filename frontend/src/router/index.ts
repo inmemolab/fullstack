@@ -79,7 +79,6 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-    // lazy-loaded
     component: ProfileView,
     meta: {
       layout: layoutProfile,
@@ -92,7 +91,6 @@ const routes = [
   {
     path: "/admin",
     name: "admin",
-    // lazy-loaded
     component: BoardAdmin,
     meta: {
       layout: LayoutAdmin,
@@ -105,7 +103,6 @@ const routes = [
   {
     path: "/mod",
     name: "moderator",
-    // lazy-loaded
     component: BoardModerator,
     meta: {
       layout: LayoutAdmin,
@@ -118,7 +115,6 @@ const routes = [
   {
     path: "/user",
     name: "user",
-    // lazy-loaded
     component: BoardUser,
     meta: {
       layout: LayoutAdmin,

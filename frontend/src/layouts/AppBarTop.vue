@@ -34,6 +34,16 @@
         {{ $t("menu-logout") }}
       </button>
     </div>
+    <button
+      class="btn btn-primary"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasRight"
+      aria-controls="offcanvasRight"
+    >
+      Users online
+    </button>
+
     <locale-select />
   </nav>
 </template>

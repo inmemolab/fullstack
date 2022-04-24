@@ -1,6 +1,5 @@
 // ini import
 import { Request, Response } from "express";
-import chalk from "chalk";
 import db from "../models";
 const { User, Socket } = db;
 const Op = db.Sequelize.Op;
@@ -9,38 +8,40 @@ import ip from "ip";
 const socket = (io: any) => {
   // ini io conections
   io.on("connection", async (socket: any) => {
-    console.log(chalk.blue(`Anonimos connect: ${socket.id}`));
+    // console.log(`Anonimos connect: ${socket.id}`);
     // user is join
     socket.on("userJoin", async (data: any) => {
       // create user in db
-      const userToSet = await Socket.findOne({
+      Socket.findOne({
         where: {
           userSocketId: socket.id
         }
-      });
-      if (!userToSet) {
-        await Socket.create({
-          userOnline: data.userOnline,
-          userUUID: data.userUUID,
-          userSocketId: socket.id,
-          userAuthId: data.userAuthId,
-          userAuthUsername: data.userAuthUsername,
-          userIp: ip.address(),
-          userPath: data.userPath
-        });
-      }
-      // send list of users
-      const usersList = await Socket.findAll({
-        where: {
-          userUUID: {
-            [Op.ne]: data.userUUID
-          }
+      }).then(async (userSocketId: any) => {
+        if (!userSocketId) {
+          await Socket.create({
+            userOnline: data.userOnline,
+            userUUID: data.userUUID,
+            userSocketId: socket.id,
+            userAuthId: data.userAuthId,
+            userAuthUsername: data.userAuthUsername,
+            userIp: ip.address(),
+            userPath: data.userPath
+          });
+          // send list of users
+          const usersList = await Socket.findAll({
+            where: {
+              userUUID: {
+                [Op.ne]: data.userUUID
+              }
+            }
+          });
+          socket.emit("usersList", usersList);
+          const usersJoinApp = await Socket.findOne({ where: { userSocketId: socket.id } });
+          socket.broadcast.emit("userJoinApp", usersJoinApp);
         }
       });
-      socket.emit("usersList", usersList);
-      const usersJoinApp = await Socket.findOne({ where: { userSocketId: socket.id } });
-      socket.broadcast.emit("userJoinApp", usersJoinApp);
     });
+
     // user update path
     socket.on("userPath", async (data: any) => {
       await Socket.update(
@@ -81,15 +82,16 @@ const socket = (io: any) => {
      * DISCONNECT
      * wen de user is disconnect
      */
-    socket.on("userDisconnect", async () => {
-      // if (data.socketId) {
-      await Socket.destroy({ where: { userSocketId: socket.id } });
-      // }
-      socket.broadcast.emit("userRemove", socket.id);
-    });
     socket.on("disconnect", async () => {
       await Socket.destroy({ where: { userSocketId: socket.id } });
       socket.broadcast.emit("userRemove", socket.id);
+    });
+
+    socket.on("userDisconnect", async (data: any) => {
+      if (data.socketId) {
+        await Socket.destroy({ where: { userSocketId: data.userSocketId } });
+      }
+      socket.broadcast.emit("userRemove", data.userSocketId);
     });
   });
 };

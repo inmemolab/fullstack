@@ -1,6 +1,7 @@
+// ini import
 import { defineStore } from "pinia";
 import { getList } from "@/apis/test";
-
+// export
 export const useTestStore = defineStore("test", {
   state: () => {
     return {

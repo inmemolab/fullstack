@@ -1,5 +1,6 @@
+// ini import
 import { defineStore } from "pinia";
-
+// export
 export const useStoreLayout = defineStore("layoutStore", {
   state: () => ({
     appLocale: "es",
